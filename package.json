@@ -1,0 +1,16 @@
+{
+  "name": "barbearia-marvel",
+  "version": "1.1.0",
+  "description": "Aplicação web Barbearia Marvel - Node.js puro + PostgreSQL + HTML/CSS/JS puro (layout v2)",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "pg": "^8.12.0"
+  }
+}

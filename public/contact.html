@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contato • Barbearia Marvel</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+  <nav>
+    <ul>
+      <li><a href="/index.html" class="">Home</a></li>
+      <li><a href="/services.html" class="">Serviços</a></li>
+      <li><a href="/booking.html" class="">Agendamento</a></li>
+      <li><a href="/contact.html" class="active">Contato</a></li>
+      <li><a href="/admin.html" class="">Admin</a></li>
+    </ul>
+  </nav>
+</header>
+  <main>
+    <section class="page-header">
+  <h1>Contato</h1>
+  <p>Estamos prontos para te atender</p>
+</section>
+
+<section class="contact-container">
+  <div class="contact-info">
+    <h3>Informações</h3>
+    <div class="info-item"><span class="info-icon">📍</span> Rua dos Vingadores, 616 — Centro</div>
+    <div class="info-item"><span class="info-icon">📞</span> (11) 90000-0000</div>
+    <div class="info-item"><span class="info-icon">✉️</span> contato@barbeariamarvel.com</div>
+    <a class="btn" href="/booking.html">Agendar agora</a>
+  </div>
+  <div class="map-container">
+    <span>Mapa/Imagem da localização</span>
+  </div>
+</section>
+  </main>
+  <footer>
+  <p>© <span id="year"></span> Barbearia Marvel — Todos os direitos reservados.</p>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</footer>
+  <script src="/main.js"></script>
+</body>
+</html>

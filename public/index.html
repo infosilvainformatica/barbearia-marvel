@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home • Barbearia Marvel</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header>
+  <nav>
+    <ul>
+      <li><a href="/index.html" class="active">Home</a></li>
+      <li><a href="/services.html" class="">Serviços</a></li>
+      <li><a href="/booking.html" class="">Agendamento</a></li>
+      <li><a href="/contact.html" class="">Contato</a></li>
+      <li><a href="/admin.html" class="">Admin</a></li>
+    </ul>
+  </nav>
+</header>
+  <main>
+    <section class="hero-home">
+  <div class="hero-content">
+    <h1>Estilo de herói, cuidado de mestre.</h1>
+    <p>Na Barbearia Marvel, cada corte é uma missão. Degradê perfeito, barba alinhada e atendimento pontual.</p>
+    <a class="btn" href="/booking.html">Agendar agora</a>
+  </div>
+</section>
+
+<section class="highlights">
+  <div class="highlight-card">
+    <h3>Profissionais experientes</h3>
+    <p>Do clássico ao moderno, nossa equipe domina todas as técnicas.</p>
+  </div>
+  <div class="highlight-card">
+    <h3>Produtos premium</h3>
+    <p>Qualidade de salão com acabamento impecável.</p>
+  </div>
+  <div class="highlight-card">
+    <h3>Conforto & pontualidade</h3>
+    <p>Ambiente climatizado e atendimento com hora marcada.</p>
+  </div>
+</section>
+
+<section class="cta-section">
+  <h2>Pronto para atualizar o visual?</h2>
+  <p>Garanta seu horário agora mesmo.</p>
+  <a class="cta-button" href="/booking.html">Reservar horário</a>
+</section>
+  </main>
+  <footer>
+  <p>© <span id="year"></span> Barbearia Marvel — Todos os direitos reservados.</p>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</footer>
+  <script src="/main.js"></script>
+</body>
+</html>

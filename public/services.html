@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Serviços • Barbearia Marvel</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+  <nav>
+    <ul>
+      <li><a href="/index.html" class="">Home</a></li>
+      <li><a href="/services.html" class="active">Serviços</a></li>
+      <li><a href="/booking.html" class="">Agendamento</a></li>
+      <li><a href="/contact.html" class="">Contato</a></li>
+      <li><a href="/admin.html" class="">Admin</a></li>
+    </ul>
+  </nav>
+</header>
+  <main>
+    <section class="page-header">
+  <h1>Serviços</h1>
+  <p>Escolha o pacote ideal para você</p>
+</section>
+
+<section class="services">
+  <article class="service-card">
+    <div class="service-icon">💈</div>
+    <h3>Corte clássico</h3>
+    <p>Do social ao degradê. Acabamento com tesoura e máquina.</p>
+    <div class="price">R$ 45</div>
+    <div class="duration">40 min</div>
+  </article>
+  <article class="service-card">
+    <div class="service-icon">🪒</div>
+    <h3>Barba completa</h3>
+    <p>Navalha, modelagem e toalha quente para um barbear preciso.</p>
+    <div class="price">R$ 35</div>
+    <div class="duration">30 min</div>
+  </article>
+  <article class="service-card">
+    <div class="service-icon">⚡</div>
+    <h3>Combo Herói</h3>
+    <p>Corte + barba para sair com visual completo.</p>
+    <div class="price">R$ 70</div>
+    <div class="duration">70 min</div>
+  </article>
+  <article class="service-card">
+    <div class="service-icon">🎨</div>
+    <h3>Camuflagem</h3>
+    <p>Disfarce dos fios brancos mantendo um aspecto natural.</p>
+    <div class="price">R$ 60</div>
+    <div class="duration">45 min</div>
+  </article>
+</section>
+
+<section class="cta-section">
+  <h2>Não sabe qual serviço escolher?</h2>
+  <p>Fale com nossa equipe e tire suas dúvidas.</p>
+  <a class="cta-button" href="/contact.html">Entrar em contato</a>
+</section>
+  </main>
+  <footer>
+  <p>© <span id="year"></span> Barbearia Marvel — Todos os direitos reservados.</p>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</footer>
+  <script src="/main.js"></script>
+</body>
+</html>

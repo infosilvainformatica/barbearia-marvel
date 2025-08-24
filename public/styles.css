@@ -315,7 +315,7 @@ th {
 
 /* Hero com imagem de fundo */
 .hero-home {
-    background: url('../assets/barbearia.jpg.jpg') center/cover no-repeat;
+    background: url('./assets/barbearia.jpg.jpg') center/cover no-repeat;
     color: white;
     border-radius: 10px;
     display: flex;

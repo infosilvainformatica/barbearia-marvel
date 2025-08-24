@@ -1,6 +1,6 @@
 # Barbearia Marvel — Layout V2 (CSS padrão)
 
-Front-end reprojetado com o padrão CSS solicitado. Back-end Node.js puro e PostgreSQL permanecem.
+Front-end projetado com o padrão CSS simples. Back-end Node.js puro e PostgreSQL no Render.
 Veja as páginas em `public/`.
 
 **Deploy no Render**

@@ -1,4 +1,4 @@
-// Marca link ativo via URL (fallback além do HTML)
+// Marca link ativo via URL
 (function(){
   const path = location.pathname.replace('/','') || 'index.html';
   document.querySelectorAll('nav a').forEach(a => {
@@ -6,18 +6,21 @@
   });
 })();
 
+// Função genérica para consumir a API
 async function api(path, options={}) {
   const res = await fetch(path, { headers: { 'Content-Type': 'application/json' }, ...options });
   const text = await res.text();
-  let data = null; try { data = text ? JSON.parse(text) : null; } catch(e){ data = text; }
+  let data = null;
+  try { data = text ? JSON.parse(text) : null; } catch(e){ data = text; }
   if (!res.ok) throw new Error(data?.error || res.statusText);
   return data;
 }
 
-// Booking page
+// ---------------- Booking page ----------------
 const bookingForm = document.getElementById('bookingForm');
 if (bookingForm) {
-  bookingForm.addEventListener('submit', async () => {
+  bookingForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
     const msg = document.getElementById('bookingMsg');
     msg.style.display='block'; msg.className='message'; msg.textContent='Enviando...';
     const payload = {
@@ -37,7 +40,7 @@ if (bookingForm) {
   });
 }
 
-// Admin page
+// ---------------- Admin page: Clientes ----------------
 async function loadClients() {
   const table = document.querySelector('#clientsTable tbody'); if (!table) return;
   const data = await api('/api/clients');
@@ -68,6 +71,7 @@ async function deleteClient(id) {
   await loadClients();
 }
 
+// ---------------- Admin page: Agendamentos ----------------
 async function loadAppts() {
   const table = document.querySelector('#apptsTable tbody'); if (!table) return;
   const data = await api('/api/appointments');
@@ -101,6 +105,7 @@ async function deleteAppt(id) {
   await loadAppts();
 }
 
+// ---------------- Utilitário ----------------
 function showMsg(id, text, type) {
   const box = document.getElementById(id);
   if (!box) return;
@@ -109,12 +114,12 @@ function showMsg(id, text, type) {
   box.textContent = text;
 }
 
+// ---------------- Inicialização ----------------
 window.addEventListener('DOMContentLoaded', () => {
   loadClients();
   loadAppts();
 
-  document.addEventListener("DOMContentLoaded", () => {
-  
+  // Animação dos cards de serviços
   const cards = document.querySelectorAll(".service-card");
   const reveal = () => {
     cards.forEach((card) => {
@@ -126,5 +131,4 @@ window.addEventListener('DOMContentLoaded', () => {
   };
   window.addEventListener("scroll", reveal);
   reveal();
-});
 });

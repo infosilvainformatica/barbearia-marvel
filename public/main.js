@@ -21,11 +21,17 @@ const bookingForm = document.getElementById('bookingForm');
 if (bookingForm) {
   bookingForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const msg = document.getElementById('bookingMsg');
+    let msg = document.getElementById('bookingMsg');
+    if(!msg){
+      msg = document.createElement('div');
+      msg.id = 'bookingMsg';
+      msg.className = 'message';
+      bookingForm.prepend(msg);
+    }
     msg.style.display='block'; msg.className='message'; msg.textContent='Enviando...';
     const payload = {
       name: document.getElementById('name').value,
-      phone: document.getElementById('phone').value,
+      phone: document.getElementById('phone')?.value || '',
       service: document.getElementById('service').value,
       date: document.getElementById('date').value,
       time: document.getElementById('time').value
@@ -36,6 +42,34 @@ if (bookingForm) {
       bookingForm.reset();
     } catch (e) {
       msg.classList.add('error'); msg.textContent='Erro: ' + e.message;
+    }
+  });
+}
+
+// ---------------- Contact page ----------------
+const contactForm = document.getElementById('contactForm');
+if(contactForm){
+  contactForm.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    let msg = document.getElementById('contactMsg');
+    if(!msg){
+      msg = document.createElement('div');
+      msg.id = 'contactMsg';
+      msg.className = 'message';
+      contactForm.prepend(msg);
+    }
+    msg.style.display='block'; msg.className='message'; msg.textContent='Enviando...';
+    const payload = {
+      name: document.getElementById('name').value,
+      email: document.getElementById('email').value,
+      message: document.getElementById('message').value
+    };
+    try {
+      await api('/api/contacts', { method:'POST', body: JSON.stringify(payload) });
+      msg.classList.add('success'); msg.textContent='Mensagem enviada com sucesso!';
+      contactForm.reset();
+    } catch(e){
+      msg.classList.add('error'); msg.textContent='Erro: '+e.message;
     }
   });
 }
@@ -64,6 +98,7 @@ async function saveClient(id) {
   showMsg('clientsMsg','Cliente atualizado com sucesso','success');
   await loadClients();
 }
+
 async function deleteClient(id) {
   if (!confirm('Deseja excluir este cliente?')) return;
   await api('/api/clients?id='+id, { method:'DELETE' });
@@ -98,11 +133,36 @@ async function saveAppt(id) {
   showMsg('apptsMsg','Agendamento atualizado','success');
   await loadAppts();
 }
+
 async function deleteAppt(id) {
   if (!confirm('Deseja excluir este agendamento?')) return;
   await api('/api/appointments?id='+id, { method:'DELETE' });
   showMsg('apptsMsg','Agendamento excluído','success');
   await loadAppts();
+}
+
+// ---------------- Admin page: Contatos ----------------
+async function loadContacts() {
+  const table = document.querySelector('#contactsTable tbody'); if(!table) return;
+  const data = await api('/api/contacts');
+  table.innerHTML = data.map(c => `
+    <tr>
+      <td>${c.id}</td>
+      <td>${c.name}</td>
+      <td>${c.email}</td>
+      <td>${c.message}</td>
+      <td>
+        <button class="btn-danger" onclick="deleteContact(${c.id})">Excluir</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+async function deleteContact(id){
+  if(!confirm('Deseja excluir esta mensagem?')) return;
+  await api('/api/contacts?id='+id, { method:'DELETE' });
+  showMsg('contactsMsg','Mensagem excluída','success');
+  await loadContacts();
 }
 
 // ---------------- Utilitário ----------------
@@ -118,6 +178,7 @@ function showMsg(id, text, type) {
 window.addEventListener('DOMContentLoaded', () => {
   loadClients();
   loadAppts();
+  loadContacts();
 
   // Animação dos cards de serviços
   const cards = document.querySelectorAll(".service-card");

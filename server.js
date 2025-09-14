@@ -16,7 +16,7 @@ const db = new Client({ connectionString: DATABASE_URL, ssl: { rejectUnauthorize
 async function initDb() {
   await db.connect();
 
-  // Cria tabela de clientes
+  // Tabela clientes
   await db.query(`
     CREATE TABLE IF NOT EXISTS clients (
       id SERIAL PRIMARY KEY,
@@ -26,7 +26,7 @@ async function initDb() {
     )
   `);
 
-  // Cria tabela de agendamentos
+  // Tabela agendamentos
   await db.query(`
     CREATE TABLE IF NOT EXISTS appointments (
       id SERIAL PRIMARY KEY,
@@ -34,6 +34,17 @@ async function initDb() {
       service VARCHAR(100) NOT NULL,
       date DATE NOT NULL,
       time TIME NOT NULL,
+      created_at TIMESTAMP DEFAULT NOW()
+    )
+  `);
+
+  // Tabela contatos
+  await db.query(`
+    CREATE TABLE IF NOT EXISTS contacts (
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(100) NOT NULL,
+      email VARCHAR(100) NOT NULL,
+      message TEXT NOT NULL,
       created_at TIMESTAMP DEFAULT NOW()
     )
   `);
@@ -69,7 +80,15 @@ function serveStatic(req, res) {
   if (!filePath.startsWith(path.join(__dirname,'public'))) { res.writeHead(403); res.end('Forbidden'); return true; }
   if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
     const ext = path.extname(filePath).toLowerCase();
-    const map = {'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'application/javascript; charset=utf-8','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.svg':'image/svg+xml'};
+    const map = {
+      '.html':'text/html; charset=utf-8',
+      '.css':'text/css; charset=utf-8',
+      '.js':'application/javascript; charset=utf-8',
+      '.png':'image/png',
+      '.jpg':'image/jpeg',
+      '.jpeg':'image/jpeg',
+      '.svg':'image/svg+xml'
+    };
     const ct = map[ext] || 'application/octet-stream';
     res.writeHead(200, {'Content-Type': ct});
     fs.createReadStream(filePath).pipe(res);
@@ -183,6 +202,37 @@ async function handleAppointments(req,res){
   sendJSON(res,405,{error:'Método não permitido'});
 }
 
+// Contacts CRUD
+async function handleContacts(req,res){
+  const parsed = url.parse(req.url,true);
+  const id = parsed.query.id ? parseInt(parsed.query.id) : null;
+
+  if(req.method==='GET'){
+    if(id){
+      const {rows} = await db.query('SELECT * FROM contacts WHERE id=$1',[id]);
+      return sendJSON(res,200,rows[0]||null);
+    } else {
+      const {rows} = await db.query('SELECT * FROM contacts ORDER BY created_at DESC');
+      return sendJSON(res,200,rows);
+    }
+  }
+
+  if(req.method==='POST'){
+    const b = await parseBody(req);
+    if(!b.name || !b.email || !b.message) return sendJSON(res,400,{error:'Todos os campos são obrigatórios'});
+    const {rows} = await db.query('INSERT INTO contacts(name,email,message) VALUES ($1,$2,$3) RETURNING *',[b.name.trim(), b.email.trim(), b.message.trim()]);
+    return sendJSON(res,201,rows[0]);
+  }
+
+  if(req.method==='DELETE'){
+    if(!id) return sendJSON(res,400,{error:'id é obrigatório'});
+    await db.query('DELETE FROM contacts WHERE id=$1',[id]);
+    return sendJSON(res,204,{});
+  }
+
+  sendJSON(res,405,{error:'Método não permitido'});
+}
+
 // ---------------- Server ----------------
 const server = http.createServer(async (req,res)=>{
   try{
@@ -191,9 +241,10 @@ const server = http.createServer(async (req,res)=>{
     if(parsed.pathname==='/api/health') return await handleHealth(req,res);
     if(parsed.pathname.startsWith('/api/clients')) return await handleClients(req,res);
     if(parsed.pathname.startsWith('/api/appointments')) return await handleAppointments(req,res);
+    if(parsed.pathname.startsWith('/api/contacts')) return await handleContacts(req,res);
 
     const ok = serveStatic(req,res);
-    if(!ok){ 
+    if(!ok){
       res.writeHead(404,{'Content-Type':'text/plain; charset=utf-8'});
       res.end('404 - Página não encontrada');
     }

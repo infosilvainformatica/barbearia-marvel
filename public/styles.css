@@ -208,7 +208,7 @@ nav a:hover, nav a.active {
   animation: fadeInUp 2s ease forwards;
 }
 
-/* ================= Formulários - Apenas Booking, Contact e Admin ================= */
+/* ================= Booking, Contact e Admin ================= */
 .form-section {
   max-width: 500px;
   margin: 2rem auto 4rem auto;
@@ -250,7 +250,8 @@ nav a:hover, nav a.active {
 .form-section textarea:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 10px rgba(212,175,55,0.5);
+  box-shadow: 0 0 15px rgba(212,175,55,0.6);
+  transform: scale(1.02);
 }
 
 textarea {
@@ -266,64 +267,50 @@ textarea {
   background: linear-gradient(90deg, var(--accent), var(--accent-glow));
   color: #0b0b0c;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease, box-shadow 0.4s ease;
 }
 
 .form-section button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(255,216,107,0.7);
+  transform: scale(1.07);
+  box-shadow: 0 0 30px rgba(255,216,107,0.8), 0 5px 15px rgba(0,0,0,0.4);
 }
 
 .message {
-  padding: 0.7rem 1rem;
+  display: block;
+  padding: 0.6rem 1rem;
   border-radius: var(--radius);
+  margin-bottom: 0.8rem;
   font-weight: 600;
-  text-align: center;
-  display: none;
+  transition: opacity 0.5s ease;
 }
-
-.message.success {
-  background-color: rgba(212,175,55,0.2);
-  color: var(--accent);
-}
-
-.message.error {
-  background-color: rgba(255,0,50,0.2);
-  color: #ff3333;
-}
+.message.success { color: #0b0b0c; background: var(--accent-glow); }
+.message.error { color: #f5f5f5; background: #b50b0b; }
 
 /* ================= Admin Table ================= */
 .admin-section {
   max-width: 900px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: rgba(18,18,20,0.85);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  margin: 2rem auto 4rem auto;
+  overflow-x: auto;
 }
 
 .admin-section table {
   width: 100%;
   border-collapse: collapse;
-  background: var(--card);
+  background: var(--panel);
   border-radius: var(--radius);
-  overflow: hidden;
   box-shadow: var(--shadow);
 }
 
-.admin-section th, 
+.admin-section th,
 .admin-section td {
   padding: 0.75rem 1rem;
   text-align: left;
   border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
-.admin-section th {
+.admin-section tbody tr:hover {
   background: rgba(212,175,55,0.05);
-  color: var(--accent);
+  transition: background 0.3s ease;
 }
 
 .admin-section input[type="text"],
@@ -332,4 +319,37 @@ textarea {
   width: 100%;
   padding: 0.5rem;
   border-radius: var(--radius);
-  border: 1px solid rgba(255,255,255,0
+  border: 1px solid rgba(255,255,255,0.2);
+  background: var(--bg2);
+  color: var(--white);
+  transition: all 0.3s ease, box-shadow 0.4s ease, transform 0.2s ease;
+}
+
+.admin-section input:focus {
+  box-shadow: 0 0 15px rgba(212,175,55,0.5);
+  border-color: var(--accent);
+  transform: scale(1.02);
+}
+
+.admin-section button {
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease, box-shadow 0.4s ease;
+}
+
+.admin-section button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(212,175,55,0.6);
+}
+
+.admin-section .btn-danger {
+  background: #b50b0b;
+  color: #fff;
+}
+.admin-section .btn-danger:hover {
+  background: #ff0000;
+  box-shadow: 0 0 20px rgba(255,0,0,0.6);
+}

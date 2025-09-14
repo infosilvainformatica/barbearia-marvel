@@ -11,8 +11,11 @@
   --radius: 12px;
   --shadow: 0 6px 20px rgba(0,0,0,0.6);
   --max-w: 1100px;
+  --neon: #ffdc00;
+  --neon-glow: rgba(255,220,0,0.6);
 }
 
+/* ================= Global ================= */
 * { box-sizing: border-box; }
 html, body { height: 100%; }
 body {
@@ -20,6 +23,7 @@ body {
   background: linear-gradient(135deg, var(--bg), var(--bg2));
   color: var(--white);
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 /* ================= Header ================= */
@@ -208,17 +212,20 @@ nav a:hover, nav a.active {
   animation: fadeInUp 2s ease forwards;
 }
 
-/* ================= Booking, Contact e Admin ================= */
+/* ================= Booking & Contact ================= */
 .form-section {
-  max-width: 500px;
-  margin: 2rem auto 4rem auto;
-  padding: 2rem;
-  background: rgba(18,18,20,0.85);
+  max-width: 520px;
+  margin: 3rem auto;
+  padding: 2.5rem;
+  background: rgba(18,18,20,0.9);
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  box-shadow: 0 0 20px rgba(255,220,0,0.2);
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1s forwards;
 }
 
 .form-section form {
@@ -231,12 +238,13 @@ nav a:hover, nav a.active {
   font-weight: 600;
   margin-bottom: 0.3rem;
   color: var(--accent);
+  text-shadow: 0 0 8px var(--neon-glow);
 }
 
 .form-section input,
 .form-section select,
 .form-section textarea {
-  padding: 0.7rem 1rem;
+  padding: 0.75rem 1rem;
   border-radius: var(--radius);
   border: 1px solid rgba(255,255,255,0.2);
   background: var(--bg2);
@@ -249,47 +257,32 @@ nav a:hover, nav a.active {
 .form-section select:focus,
 .form-section textarea:focus {
   outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 15px rgba(212,175,55,0.6);
+  border-color: var(--neon);
+  box-shadow: 0 0 15px var(--neon-glow);
   transform: scale(1.02);
 }
 
-textarea {
-  min-height: 120px;
-  resize: vertical;
-}
+textarea { min-height: 130px; resize: vertical; }
 
 .form-section button {
-  padding: 0.75rem 1.2rem;
+  padding: 0.8rem 1.4rem;
   border-radius: var(--radius);
   font-weight: 700;
   border: none;
-  background: linear-gradient(90deg, var(--accent), var(--accent-glow));
+  background: var(--neon);
   color: #0b0b0c;
   cursor: pointer;
   transition: all 0.3s ease, box-shadow 0.4s ease;
 }
-
 .form-section button:hover {
-  transform: scale(1.07);
-  box-shadow: 0 0 30px rgba(255,216,107,0.8), 0 5px 15px rgba(0,0,0,0.4);
+  transform: scale(1.08);
+  box-shadow: 0 0 25px var(--neon-glow), 0 5px 15px rgba(0,0,0,0.4);
 }
 
-.message {
-  display: block;
-  padding: 0.6rem 1rem;
-  border-radius: var(--radius);
-  margin-bottom: 0.8rem;
-  font-weight: 600;
-  transition: opacity 0.5s ease;
-}
-.message.success { color: #0b0b0c; background: var(--accent-glow); }
-.message.error { color: #f5f5f5; background: #b50b0b; }
-
-/* ================= Admin Table ================= */
+/* ================= Admin Panel ================= */
 .admin-section {
-  max-width: 900px;
-  margin: 2rem auto 4rem auto;
+  max-width: 950px;
+  margin: 3rem auto;
   overflow-x: auto;
 }
 
@@ -309,7 +302,7 @@ textarea {
 }
 
 .admin-section tbody tr:hover {
-  background: rgba(212,175,55,0.05);
+  background: rgba(255,220,0,0.05);
   transition: background 0.3s ease;
 }
 
@@ -324,11 +317,10 @@ textarea {
   color: var(--white);
   transition: all 0.3s ease, box-shadow 0.4s ease, transform 0.2s ease;
 }
-
 .admin-section input:focus {
-  box-shadow: 0 0 15px rgba(212,175,55,0.5);
-  border-color: var(--accent);
-  transform: scale(1.02);
+  box-shadow: 0 0 15px var(--neon-glow);
+  border-color: var(--neon);
+  transform: scale(1.03);
 }
 
 .admin-section button {
@@ -339,10 +331,9 @@ textarea {
   cursor: pointer;
   transition: all 0.3s ease, box-shadow 0.4s ease;
 }
-
 .admin-section button:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(212,175,55,0.6);
+  box-shadow: 0 0 20px var(--neon-glow);
 }
 
 .admin-section .btn-danger {
@@ -353,3 +344,15 @@ textarea {
   background: #ff0000;
   box-shadow: 0 0 20px rgba(255,0,0,0.6);
 }
+
+/* ================= Message Boxes ================= */
+.message {
+  display: block;
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius);
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+  transition: opacity 0.5s ease;
+}
+.message.success { color: #0b0b0c; background: var(--neon); box-shadow: 0 0 15px var(--neon-glow); }
+.message.error { color: #f5f5f5; background: #b50b0b; box-shadow: 0 0 15px rgba(255,0,0,0.5); }

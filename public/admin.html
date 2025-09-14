@@ -29,14 +29,35 @@
 
   <section class="admin-section">
     <h2><i class="fa-solid fa-calendar-check"></i> Agendamentos</h2>
-    <div id="appointments-list">
-      <!-- Lista de agendamentos será carregada pelo JS -->
-    </div>
+    <div id="apptsMsg" class="message" style="display:none;"></div>
+    <table id="apptsTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Cliente</th>
+          <th>Telefone</th>
+          <th>Serviço</th>
+          <th>Data</th>
+          <th>Hora</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
 
     <h2><i class="fa-solid fa-users"></i> Usuários</h2>
-    <div id="users-list">
-      <!-- Lista de usuários será carregada pelo JS -->
-    </div>
+    <div id="clientsMsg" class="message" style="display:none;"></div>
+    <table id="clientsTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Telefone</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
   </section>
 
   <footer class="footer">

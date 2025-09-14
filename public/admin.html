@@ -13,21 +13,22 @@
     <h2><i class="fa-solid fa-scissors"></i> Barbearia Marvel</h2>
     <nav>
       <ul>
-        <li><a href="index.html"><i class="fa-solid fa-house"></i> Início</a></li>
-        <li><a href="services.html"><i class="fa-solid fa-bars-staggered"></i> Serviços</a></li>
-        <li><a href="booking.html"><i class="fa-solid fa-calendar-check"></i> Agendar</a></li>
-        <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contato</a></li>
-        <li><a href="admin.html" class="active"><i class="fa-solid fa-user-shield"></i> Admin</a></li>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="services.html">Serviços</a></li>
+        <li><a href="booking.html">Agendar</a></li>
+        <li><a href="contact.html">Contato</a></li>
+        <li><a href="admin.html" class="active">Admin</a></li>
       </ul>
     </nav>
   </header>
 
   <section class="page-header">
     <h1><i class="fa-solid fa-user-shield"></i> Painel Administrativo</h1>
-    <p>Gerencie os agendamentos e cadastros</p>
+    <p>Gerencie os agendamentos, cadastros e mensagens</p>
   </section>
 
   <section class="admin-section">
+    <!-- Agendamentos -->
     <h2><i class="fa-solid fa-calendar-check"></i> Agendamentos</h2>
     <div id="apptsMsg" class="message" style="display:none;"></div>
     <table id="apptsTable">
@@ -45,6 +46,7 @@
       <tbody></tbody>
     </table>
 
+    <!-- Usuários -->
     <h2><i class="fa-solid fa-users"></i> Usuários</h2>
     <div id="clientsMsg" class="message" style="display:none;"></div>
     <table id="clientsTable">
@@ -53,6 +55,22 @@
           <th>ID</th>
           <th>Nome</th>
           <th>Telefone</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <!-- Mensagens de contato -->
+    <h2><i class="fa-solid fa-envelope"></i> Mensagens de Contato</h2>
+    <div id="contactsMsg" class="message" style="display:none;"></div>
+    <table id="contactsTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Mensagem</th>
           <th>Ações</th>
         </tr>
       </thead>
